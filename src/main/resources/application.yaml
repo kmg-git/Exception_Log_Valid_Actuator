@@ -1,0 +1,3 @@
+spring:
+  application:
+    name: Exception_Log_Valid_Actuator
