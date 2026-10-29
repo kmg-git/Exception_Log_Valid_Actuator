@@ -4,6 +4,8 @@ import com.example.exception_log_valid_actuator.Repository.ScoreRepository;
 import com.example.exception_log_valid_actuator.Repository.StudentRepository;
 import com.example.exception_log_valid_actuator.domain.Score;
 import com.example.exception_log_valid_actuator.dto.request.ScoreLineRequest;
+import com.example.exception_log_valid_actuator.exception.DuplicateSubjectException;
+import com.example.exception_log_valid_actuator.exception.StudentNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +21,12 @@ public class ScoreService {
     public String register(Long studentId, List<ScoreLineRequest> scores) {
 
         studentRepository.findById(studentId)
-                .orElseThrow(() -> new RuntimeException("학생을 찾을 수 없습니다: " + studentId));
+                .orElseThrow(() -> new StudentNotFoundException());
 
         for (ScoreLineRequest line : scores) {
+            if(scoreRepository.exists(studentId, line.getSubject())){
+                throw new DuplicateSubjectException();
+            }
             scoreRepository.save(studentId, line.getSubject(), line.getScore());
         }
 
