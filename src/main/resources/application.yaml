@@ -1,3 +1,27 @@
 spring:
   application:
     name: Exception_Log_Valid_Actuator
+  profiles:
+    active: local
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+
+logging:
+  level:
+    root: INFO
+    com.example.exception_log_valid_actuator: DEBUG
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+logging:
+  level:
+    root: INFO
+    com.example.exception_log_valid_actuator: INFO

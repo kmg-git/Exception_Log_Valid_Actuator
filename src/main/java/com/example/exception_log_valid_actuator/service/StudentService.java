@@ -5,8 +5,10 @@ import com.example.exception_log_valid_actuator.domain.Student;
 import com.example.exception_log_valid_actuator.exception.DuplicateStudentNoException;
 import com.example.exception_log_valid_actuator.exception.StudentNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class StudentService {
@@ -17,6 +19,7 @@ public class StudentService {
         if(studentRepository.existsByStudentNo(studentNo)){
             throw new DuplicateStudentNoException();
         }
+        log.info("이름 : "+name +"\t 학번 : "+ studentNo);
         return studentRepository.save(studentNo, name);
     }
 
