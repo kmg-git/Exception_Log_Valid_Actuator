@@ -5,6 +5,7 @@ import com.example.exception_log_valid_actuator.domain.Student;
 import com.example.exception_log_valid_actuator.dto.request.StudentRequest;
 import com.example.exception_log_valid_actuator.service.ScoreService;
 import com.example.exception_log_valid_actuator.service.StudentService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ public class StudentController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Student register(@RequestBody StudentRequest request) {
+    public Student register(@Valid @RequestBody StudentRequest request) {
         return studentService.register(request.getStudentNo(), request.getName());
     }
 
