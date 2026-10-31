@@ -4,6 +4,25 @@ spring:
   profiles:
     active: local
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics     # 이 세 개만 엽니다
+  endpoint:
+    health:
+      show-details: always                 # 항목별 결과까지 보여줍니다
+  info:
+    env:
+      enabled: true                        # 아래 info 값을 노출합니다
+
+info:
+  app:
+    name: 성적 관리 API
+    version: 1.0.0
+    owner: backend-team
+
+
 ---
 spring:
   config:
